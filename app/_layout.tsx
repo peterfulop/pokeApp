@@ -16,6 +16,12 @@ const Layout = () => {
                     title: 'Pokedex',
                 }}
             />
+            <Stack.Screen
+                name="(pokemon)/[id]"
+                options={{
+                    title: '',
+                }}
+            />
         </Stack>
     );
 };
