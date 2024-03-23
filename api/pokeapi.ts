@@ -6,6 +6,7 @@ export interface Pokemon {
     sprites?: any;
     abilities?: any;
     stats?: any;
+    isFavorite?: boolean;
 }
 
 export const getPokemon = async (limit = 150): Promise<Pokemon[]> => {
