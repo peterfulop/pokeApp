@@ -13,6 +13,7 @@ const Page = () => {
         };
         load();
     }, []);
+    console.log(pokemon);
 
     return (
         <View>
