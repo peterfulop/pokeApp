@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
-import { getPokemonDetail, Pokemon } from '@/api/pokeapi';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getPokemonDetail } from '@/api/pokeapi';
 import { Ionicons } from '@expo/vector-icons';
 import { useQuery } from '@tanstack/react-query';
 import { storage } from '@/api/mmkv';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 const TestPage = () => {
     const { id } = useLocalSearchParams<{ id: string }>();
@@ -62,7 +62,10 @@ const TestPage = () => {
         >
             {pokemonQuery.data && (
                 <>
-                    <View style={[styles.card, { alignItems: 'center' }]}>
+                    <Animated.View
+                        entering={FadeIn.delay(200)}
+                        style={[styles.card, { alignItems: 'center' }]}
+                    >
                         <Image
                             source={{
                                 uri: pokemonQuery.data.sprites.front_default,
@@ -75,7 +78,7 @@ const TestPage = () => {
                         <Text style={styles.name}>
                             #{pokemonQuery.data.id} {pokemonQuery.data?.name}
                         </Text>
-                    </View>
+                    </Animated.View>
                     <View style={styles.card}>
                         <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Stats:</Text>
                         {pokemonQuery.data.stats.map((stat: any) => (

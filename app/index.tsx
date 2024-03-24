@@ -1,14 +1,6 @@
 import { getPokemon, Pokemon } from '@/api/pokeapi';
 import { Link } from 'expo-router';
-import {
-    ActivityIndicator,
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-} from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useQuery } from '@tanstack/react-query';
 import { FlashList } from '@shopify/flash-list';
