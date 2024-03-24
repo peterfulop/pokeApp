@@ -5,12 +5,15 @@ import { getPokemonDetail, Pokemon } from '@/api/pokeapi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { useQuery } from '@tanstack/react-query';
+import { storage } from '@/api/mmkv';
 
 const TestPage = () => {
     const { id } = useLocalSearchParams<{ id: string }>();
     const navigation = useNavigation();
 
-    const [isFavorite, setIsFavorite] = useState<boolean>(false);
+    const [isFavorite, setIsFavorite] = useState<boolean>(
+        storage.getString(`favorite-${id}`) === 'true'
+    );
 
     const pokemonQuery = useQuery({
         queryKey: ['pokemon', id],
@@ -21,8 +24,8 @@ const TestPage = () => {
     useEffect(() => {
         const load = async () => {
             if (!pokemonQuery.data) return;
-            const isFavorite = await AsyncStorage.getItem(`favorite-${id}`);
-            setIsFavorite(isFavorite === 'true');
+            // const isFavorite = await AsyncStorage.getItem(`favorite-${id}`);
+            // setIsFavorite(isFavorite === 'true');F
             navigation.setOptions({
                 title:
                     pokemonQuery.data.name.charAt(0).toUpperCase() +
@@ -33,11 +36,7 @@ const TestPage = () => {
     }, [pokemonQuery]);
 
     const toggleFavorite = async () => {
-        if (isFavorite) {
-            await AsyncStorage.removeItem(`favorite-${id}`);
-        } else {
-            await AsyncStorage.setItem(`favorite-${id}`, 'true');
-        }
+        storage.set(`favorite-${id}`, !isFavorite ? 'true' : 'false');
         setIsFavorite(!isFavorite);
     };
 
