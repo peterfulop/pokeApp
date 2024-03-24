@@ -24,8 +24,6 @@ const TestPage = () => {
     useEffect(() => {
         const load = async () => {
             if (!pokemonQuery.data) return;
-            // const isFavorite = await AsyncStorage.getItem(`favorite-${id}`);
-            // setIsFavorite(isFavorite === 'true');F
             navigation.setOptions({
                 title:
                     pokemonQuery.data.name.charAt(0).toUpperCase() +
